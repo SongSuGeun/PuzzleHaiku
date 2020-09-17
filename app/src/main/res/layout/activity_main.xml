@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="아래의 단어를 사용해서\n하이쿠를 완성하요."
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/firstWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="-"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appTitle"
+        tools:text="first word" />
+
+    <TextView
+        android:id="@+id/secondWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="-"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/firstWord"
+        app:layout_constraintTop_toBottomOf="@id/appTitle"
+        tools:text="second word" />
+
+    <TextView
+        android:id="@+id/thirdWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="-"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstWord"
+        tools:text="third word" />
+
+    <ImageButton
+        android:id="@+id/refreshButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="30dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/haiku_refresh_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/contentBackGround" />
+
+    <RelativeLayout
+        android:id="@+id/contentBackGround"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_haiku"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thirdWord" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="400dp"
+        android:background="@drawable/shape_divider"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/contentBackGround"
+        app:layout_constraintEnd_toEndOf="@id/contentBackGround"
+        app:layout_constraintStart_toStartOf="@id/contentBackGround"
+        app:layout_constraintTop_toTopOf="@id/contentBackGround">
+
+        <EditText
+            android:id="@+id/thirdHaiku"
+            android:layout_width="40dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="130dp"
+            android:background="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/secondHaiku"
+            android:layout_width="40dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/colorWhite" />
+
+        <EditText
+            android:id="@+id/firstHaiku"
+            android:layout_width="40dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/clearButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/haiku_gomi_button"
+        app:layout_constraintBottom_toBottomOf="@id/contentBackGround"
+        app:layout_constraintEnd_toStartOf="@id/saveButton" />
+
+    <ImageButton
+        android:id="@+id/saveButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/haiku_save_button"
+        app:layout_constraintBottom_toBottomOf="@id/contentBackGround"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
