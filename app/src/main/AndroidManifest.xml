@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".menu.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>

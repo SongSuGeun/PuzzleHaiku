@@ -1,7 +1,5 @@
 package com.example.haikupuzzle
 
-import android.view.View
-
 interface MainPresenterInt {
     fun takeView(view: MainFragmentView)
     fun onClickRefreshButton()
