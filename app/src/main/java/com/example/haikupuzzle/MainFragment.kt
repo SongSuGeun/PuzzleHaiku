@@ -1,16 +1,22 @@
 package com.example.haikupuzzle
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.io.InputStream
 
 interface MainFragmentView {
     fun refresh()
+    fun showSaveDialog()
+    fun completeSaveHaiku(isSaveHaiku: Boolean)
 }
 
 class MainFragment : Fragment(), MainFragmentView {
@@ -38,11 +44,15 @@ class MainFragment : Fragment(), MainFragmentView {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = MainPresenter()
-
         presenter.takeView(this)
 
-        wordList =
-            listOf(firstWord.text.toString(), secondWord.text.toString(), thirdWord.text.toString())
+        parsingToJson()
+
+        wordList = listOf(
+            firstWord.text.toString(),
+            secondWord.text.toString(),
+            thirdWord.text.toString()
+        )
 
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -83,6 +93,14 @@ class MainFragment : Fragment(), MainFragmentView {
         refreshButton.setOnClickListener {
             presenter.onClickRefreshButton()
         }
+
+        clearButton.setOnClickListener {
+            presenter.onClickRefreshButton()
+        }
+
+        saveButton.setOnClickListener {
+            presenter.onClickSaveButton()
+        }
     }
 
     override fun refresh() {
@@ -98,5 +116,28 @@ class MainFragment : Fragment(), MainFragmentView {
             this.clearFocus()
             this.text.clear()
         }
+    }
+
+    override fun showSaveDialog() {
+        AlertDialog.Builder(requireActivity())
+            .setTitle("save하겠습니까")
+            .setMessage("Save된 하이쿠는 메뉴에서 확인하실수있습니다.")
+            .setPositiveButton("OK") { dialog, _ ->
+                // wordList: List<String>, haikuList: List<String>
+                presenter.saveHaiku(wordList, haikuList)
+            }
+            .setNegativeButton("NO") { _, _ -> }
+            .show()
+    }
+
+    override fun completeSaveHaiku(isSaveHaiku: Boolean) {
+        if (isSaveHaiku) AlertDialog.Builder(requireActivity())
+            .setMessage("Haiku가 저장되었습니다. 메뉴 탭에서 확인해주세요")
+            .setPositiveButton("OK") { _, _ -> }
+            .show()
+    }
+
+    private fun parsingToJson() {
+//        val inputStream = InputStream()
     }
 }

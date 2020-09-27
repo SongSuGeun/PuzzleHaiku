@@ -1,9 +1,8 @@
 package com.example.haikupuzzle
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.haikupuzzle.menu.SettingsActivity
+import com.example.haikupuzzle.setting.SettingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -15,18 +14,22 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_navigation_home -> {
-                    println("song--1")
+                    navigateToMainFragment()
                     true
                 }
                 else -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    // TODO 既存のACTIVITYの画面にinflateするように変わること。
-                    startActivity(intent)
+                    val fragment = SettingFragment.nweInstance()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.mainFrameLayout, fragment)
+                        .commit()
                     true
                 }
             }
         }
+        navigateToMainFragment()
+    }
 
+    private fun navigateToMainFragment(){
         val fragment = MainFragment.newInstance()
         supportFragmentManager.beginTransaction().replace(R.id.mainFrameLayout, fragment).commit()
     }

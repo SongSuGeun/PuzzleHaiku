@@ -1,4 +1,4 @@
-package com.example.haikupuzzle.menu
+package com.example.haikupuzzle.setting
 
 interface SettingPresenterInt {
 
