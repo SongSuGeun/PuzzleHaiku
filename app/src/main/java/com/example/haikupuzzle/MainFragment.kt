@@ -1,17 +1,18 @@
 package com.example.haikupuzzle
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.haikupuzzle.util.JsonResourcesUtils
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.io.InputStream
+import org.json.JSONObject
+import timber.log.Timber
+import java.io.IOException
 
 interface MainFragmentView {
     fun refresh()
@@ -28,10 +29,8 @@ class MainFragment : Fragment(), MainFragmentView {
             }
     }
 
-    private var wordList = listOf<String>()
-    private var haikuList = listOf<String>()
+    private var haikuList = mutableListOf<String>()
     private lateinit var presenter: MainPresenterInt
-    private var correctCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,37 +45,21 @@ class MainFragment : Fragment(), MainFragmentView {
         presenter = MainPresenter()
         presenter.takeView(this)
 
-        parsingToJson()
-
-        wordList = listOf(
-            firstWord.text.toString(),
-            secondWord.text.toString(),
-            thirdWord.text.toString()
-        )
+        setHaikuWord(parsingToJson())
 
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) return
-                var number = 0
 
-                haikuList =
-                    listOf(
-                        firstHaiku.text.toString(),
-                        secondHaiku.text.toString(),
-                        thirdHaiku.text.toString()
-                    )
+                val wordList = firstHaiku.text.toString().plus(secondHaiku.text.toString())
+                    .plus(thirdHaiku.text.toString())
 
-                if (haikuList.isEmpty()) return
-
-                wordList.forEach {
-                    if (haikuList.contains(it)) number += 1
+                var correctCount = 0
+                for (i in 0 until haikuList.size) {
+                    if (wordList.contains(haikuList[i])) correctCount += 1
                 }
-                correctCount = number
-                if (correctCount > 3) {
-                    haikuConfirmNotice.text = "定義した単語全部使いました。"
-                } else {
-                    haikuConfirmNotice.text = "定義した単語を全部使ってください。"
-                }
+                haikuConfirmNotice.text =
+                    if (correctCount >= 3) "定義した単語全部使いました。" else "定義した単語を全部使ってください。"
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -104,6 +87,7 @@ class MainFragment : Fragment(), MainFragmentView {
     }
 
     override fun refresh() {
+        setHaikuWord(parsingToJson())
         firstHaiku.run {
             this.clearFocus()
             this.text.clear()
@@ -122,8 +106,12 @@ class MainFragment : Fragment(), MainFragmentView {
         AlertDialog.Builder(requireActivity())
             .setTitle("save하겠습니까")
             .setMessage("Save된 하이쿠는 메뉴에서 확인하실수있습니다.")
-            .setPositiveButton("OK") { dialog, _ ->
-                // wordList: List<String>, haikuList: List<String>
+            .setPositiveButton("OK") { _, _ ->
+                val wordList = listOf(
+                    firstHaiku.text.toString(),
+                    secondHaiku.text.toString(),
+                    thirdHaiku.text.toString()
+                )
                 presenter.saveHaiku(wordList, haikuList)
             }
             .setNegativeButton("NO") { _, _ -> }
@@ -137,7 +125,33 @@ class MainFragment : Fragment(), MainFragmentView {
             .show()
     }
 
-    private fun parsingToJson() {
-//        val inputStream = InputStream()
+    private fun parsingToJson(jsonFileName: String = "HaikuWordList.json"): MutableList<String> {
+
+        val jsonWordList =
+            JsonResourcesUtils().getJsonWordList(requireContext(), jsonFileName)
+        val haikuArray = mutableListOf<String>()
+        try {
+            val obj = JSONObject(jsonWordList)
+            val jsonArray = obj.getJSONArray("haikuWord")
+            while (haikuArray.size < 3) {
+                val randomInt = (0 until jsonArray.length()).random()
+                if (!haikuArray.contains(jsonArray[randomInt])) haikuArray.add(jsonArray[randomInt].toString())
+            }
+        } catch (e: IOException) {
+            Timber.e("get json error")
+        }
+        return haikuArray
+    }
+
+    private fun setHaikuWord(randomHaikuList: MutableList<String>) {
+        if (randomHaikuList.isNotEmpty()) {
+            haikuList.clear()
+            haikuList = randomHaikuList
+            haikuList.also {
+                firstWord.text = it[0]
+                secondWord.text = it[1]
+                thirdWord.text = it[2]
+            }
+        }
     }
 }
