@@ -30,6 +30,8 @@ class MainFragment : Fragment(), MainFragmentView {
     }
 
     private var haikuList = mutableListOf<String>()
+    private var correctCount = 0
+
     private lateinit var presenter: MainPresenterInt
 
     override fun onCreateView(
@@ -50,11 +52,11 @@ class MainFragment : Fragment(), MainFragmentView {
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) return
+                correctCount = 0
 
                 val wordList = firstHaiku.text.toString().plus(secondHaiku.text.toString())
                     .plus(thirdHaiku.text.toString())
 
-                var correctCount = 0
                 for (i in 0 until haikuList.size) {
                     if (wordList.contains(haikuList[i])) correctCount += 1
                 }
@@ -112,7 +114,7 @@ class MainFragment : Fragment(), MainFragmentView {
                     secondHaiku.text.toString(),
                     thirdHaiku.text.toString()
                 )
-                presenter.saveHaiku(wordList, haikuList)
+                presenter.saveHaiku(wordList, haikuList, correctCount)
             }
             .setNegativeButton("NO") { _, _ -> }
             .show()
