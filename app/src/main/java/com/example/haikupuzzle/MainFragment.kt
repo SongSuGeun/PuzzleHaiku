@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.haikupuzzle.util.JsonResourcesUtils
+import com.example.haikupuzzle.util.MySharedPreferences
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.json.JSONObject
 import timber.log.Timber
@@ -17,7 +18,7 @@ import java.io.IOException
 interface MainFragmentView {
     fun refresh()
     fun showSaveDialog()
-    fun completeSaveHaiku(isSaveHaiku: Boolean)
+    fun completeSaveHaiku()
 }
 
 class MainFragment : Fragment(), MainFragmentView {
@@ -45,7 +46,7 @@ class MainFragment : Fragment(), MainFragmentView {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = MainPresenter()
-        presenter.takeView(this)
+        presenter.initData(MySharedPreferences(requireContext()))
 
         setHaikuWord(parsingToJson())
 
@@ -88,6 +89,16 @@ class MainFragment : Fragment(), MainFragmentView {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.takeView(this)
+    }
+
+    override fun onPause() {
+        presenter.dropView()
+        super.onPause()
+    }
+
     override fun refresh() {
         setHaikuWord(parsingToJson())
         firstHaiku.run {
@@ -120,8 +131,8 @@ class MainFragment : Fragment(), MainFragmentView {
             .show()
     }
 
-    override fun completeSaveHaiku(isSaveHaiku: Boolean) {
-        if (isSaveHaiku) AlertDialog.Builder(requireActivity())
+    override fun completeSaveHaiku() {
+        AlertDialog.Builder(requireActivity())
             .setMessage("Haiku가 저장되었습니다. 메뉴 탭에서 확인해주세요")
             .setPositiveButton("OK") { _, _ -> }
             .show()

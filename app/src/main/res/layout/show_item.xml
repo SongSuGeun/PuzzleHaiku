@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/showFirst_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Moon" />
+
+    <TextView
+        android:id="@+id/showSecond_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toEndOf="@id/showFirst_word"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="sun" />
+
+    <TextView
+        android:id="@+id/showThird_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toEndOf="@id/showSecond_word"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cloud" />
+
+    <LinearLayout
+        android:id="@+id/showHaikuLayout"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/shape_divider"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/showFirst_word">
+
+        <EditText
+            android:id="@+id/showFirstHaiku"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:textColor="@color/colorBlack"
+            tools:text="first test word" />
+
+        <EditText
+            android:id="@+id/showSecondHaiku"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:text="ami"
+            android:textColor="@color/colorBlack"
+            tools:text="test word" />
+
+        <EditText
+            android:id="@+id/showThirdHaiku"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorWhite"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:text="test word ami"
+            android:textColor="@color/colorBlack"
+            tools:text="test word ami" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/showCreatedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="2020-10-20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout" />
+
+    <TextView
+        android:id="@+id/showCorrectCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@id/showHaikuLayout"
+        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout"
+        tools:text="3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,5 +8,5 @@
     <item
         android:id="@+id/main_navigation_setting"
         android:icon="@drawable/haiku_bow_2"
-        android:title="設定" />
+        android:title="俳句記録" />
 </menu>

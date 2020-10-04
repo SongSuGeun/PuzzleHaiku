@@ -2,7 +2,7 @@ package com.example.haikupuzzle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.haikupuzzle.setting.SettingFragment
+import com.example.haikupuzzle.setting.ShowFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 else -> {
-                    val fragment = SettingFragment.nweInstance()
+                    val fragment = ShowFragment.nweInstance()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.mainFrameLayout, fragment)
                         .commit()
