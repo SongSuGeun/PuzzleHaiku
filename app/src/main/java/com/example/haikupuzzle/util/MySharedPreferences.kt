@@ -15,12 +15,8 @@ class MySharedPreferences(context: Context) {
 
     fun applySharedPreference(haikuModels: HaikuModels) {
         val getHaikuModels = getSharedPreference()
-        val setGson = if (getHaikuModels.isNullOrEmpty()) {
-            Gson().toJson(mutableListOf(haikuModels))
-        } else {
-            getHaikuModels.add(haikuModels)
-            Gson().toJson(getHaikuModels)
-        }
+        getHaikuModels.add(haikuModels)
+        val setGson = Gson().toJson(getHaikuModels)
         preferences.edit()
             .putString(HAIKU, setGson)
             .apply()
@@ -29,14 +25,25 @@ class MySharedPreferences(context: Context) {
     fun getSharedPreference(): MutableList<HaikuModels> {
         val getGson = Gson()
         val json = preferences.getString(HAIKU, "")
-        println("song---get sharepre $json")
         return if (json.isNullOrEmpty()) {
-            println("song---get sharepre is null or empty")
             mutableListOf()
         } else {
-            println("song---get sharepre is not null or empty")
-            val type = object : TypeToken<MutableList<HaikuModels>?>() {}.type
+            val type = object : TypeToken<List<HaikuModels>?>() {}.type
             getGson.fromJson(json, type)
         }
     }
+/*
+    fun removeSharedPreference(position: Int) {
+        val currentCalendarModel = getSharedPreference()
+        preferences.edit()
+            .remove(editDate)
+            .apply()
+        if (!currentCalendarModel.isNullOrEmpty()) {
+            currentCalendarModel.removeAt(position)
+            val setGson = Gson().toJson(currentCalendarModel)
+            preferences.edit()
+                .putString(editDate, setGson)
+                .apply()
+        }
+    }*/
 }

@@ -7,6 +7,7 @@ interface ShowPresenterInt {
     fun dropView()
     fun initData(mySharedPreferences: MySharedPreferences)
     fun getHaiku()
+    fun onClickRemoveButton(position: Int)
 }
 
 class ShowPresenter : ShowPresenterInt {
@@ -16,6 +17,7 @@ class ShowPresenter : ShowPresenterInt {
 
     override fun takeView(view: ShowFragmentView) {
         this.view = view
+        view.initModel(mySharedPreferences.getSharedPreference())
     }
 
     override fun dropView() {
@@ -31,5 +33,9 @@ class ShowPresenter : ShowPresenterInt {
         val haikuModels = mySharedPreferences.getSharedPreference()
         println("song--getHaiku showPresenter $haikuModels")
         view?.setHaikuModels(haikuModels)
+    }
+
+    override fun onClickRemoveButton(position: Int) {
+        // TODO remove item
     }
 }

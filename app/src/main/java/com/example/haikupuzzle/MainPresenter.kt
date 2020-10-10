@@ -41,17 +41,13 @@ class MainPresenter : MainPresenterInt {
     }
 
     override fun saveHaiku(wordList: List<String>, haikuList: List<String>, correctCount: Int) {
-        // TODO shared Preference에 저장할것
         val haikuModel = HaikuModel(haikuList[0], haikuList[1], haikuList[2])
         val wordModel = WordModel(wordList[0], wordList[1], wordList[2])
         val currentDate = LocalDate.now().toString()
 
         val haikuModels = HaikuModels(currentDate, wordModel, haikuModel, correctCount)
-        println("song----1 $haikuModels")
-
         mySharedPreferences.applySharedPreference(haikuModels)
-
-//        view?.refresh()
+        view?.refresh()
         view?.completeSaveHaiku()
     }
 }

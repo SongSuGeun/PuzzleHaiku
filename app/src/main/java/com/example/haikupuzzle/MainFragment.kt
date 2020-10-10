@@ -30,7 +30,7 @@ class MainFragment : Fragment(), MainFragmentView {
             }
     }
 
-    private var haikuList = mutableListOf<String>()
+    private var wordsList = mutableListOf<String>()
     private var correctCount = 0
 
     private lateinit var presenter: MainPresenterInt
@@ -58,8 +58,8 @@ class MainFragment : Fragment(), MainFragmentView {
                 val wordList = firstHaiku.text.toString().plus(secondHaiku.text.toString())
                     .plus(thirdHaiku.text.toString())
 
-                for (i in 0 until haikuList.size) {
-                    if (wordList.contains(haikuList[i])) correctCount += 1
+                for (i in 0 until wordsList.size) {
+                    if (wordList.contains(wordsList[i])) correctCount += 1
                 }
                 haikuConfirmNotice.text =
                     if (correctCount >= 3) "定義した単語全部使いました。" else "定義した単語を全部使ってください。"
@@ -119,27 +119,28 @@ class MainFragment : Fragment(), MainFragmentView {
         AlertDialog.Builder(requireActivity())
             .setTitle("save하겠습니까")
             .setMessage("Save된 하이쿠는 메뉴에서 확인하실수있습니다.")
+            .setNegativeButton("NO") { _, _ -> }
             .setPositiveButton("OK") { _, _ ->
-                val wordList = listOf(
+                val haikuList = listOf(
                     firstHaiku.text.toString(),
                     secondHaiku.text.toString(),
                     thirdHaiku.text.toString()
                 )
-                presenter.saveHaiku(wordList, haikuList, correctCount)
+                presenter.saveHaiku(wordsList, haikuList, correctCount)
             }
-            .setNegativeButton("NO") { _, _ -> }
             .show()
     }
 
     override fun completeSaveHaiku() {
         AlertDialog.Builder(requireActivity())
             .setMessage("Haiku가 저장되었습니다. 메뉴 탭에서 확인해주세요")
-            .setPositiveButton("OK") { _, _ -> }
+            .setPositiveButton("OK") { _, _ ->
+                refresh()
+            }
             .show()
     }
 
     private fun parsingToJson(jsonFileName: String = "HaikuWordList.json"): MutableList<String> {
-
         val jsonWordList =
             JsonResourcesUtils().getJsonWordList(requireContext(), jsonFileName)
         val haikuArray = mutableListOf<String>()
@@ -158,9 +159,9 @@ class MainFragment : Fragment(), MainFragmentView {
 
     private fun setHaikuWord(randomHaikuList: MutableList<String>) {
         if (randomHaikuList.isNotEmpty()) {
-            haikuList.clear()
-            haikuList = randomHaikuList
-            haikuList.also {
+            wordsList.clear()
+            wordsList = randomHaikuList
+            wordsList.also {
                 firstWord.text = it[0]
                 secondWord.text = it[1]
                 thirdWord.text = it[2]

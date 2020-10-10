@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 
 interface ShowFragmentView {
     fun setHaikuModels(haikuModels: MutableList<HaikuModels>)
+    fun initModel(haikuModels: MutableList<HaikuModels>)
 }
 
 class ShowFragment : Fragment(), ShowFragmentView {
@@ -51,18 +52,25 @@ class ShowFragment : Fragment(), ShowFragmentView {
         super.onPause()
     }
 
+    override fun initModel(haikuModels: MutableList<HaikuModels>) {
+        this.haikuModels = haikuModels
+    }
+
     override fun setHaikuModels(haikuModels: MutableList<HaikuModels>) {
         this.haikuModels = haikuModels
-        println("song--setHaiku,, ${this.haikuModels}")
         recyclerShowView.adapter?.notifyDataSetChanged()
     }
 
     private fun initAdapter() {
-        // TODO RecyclerView not showing
         recyclerShowView.layoutManager = LinearLayoutManager(requireContext())
         recyclerShowView.setHasFixedSize(true)
         recyclerShowView.isNestedScrollingEnabled = false
         println("song--initAdapter desu ,, $haikuModels")
-        recyclerShowView.adapter = ShowAdapter(requireContext(), haikuModels)
+        recyclerShowView.adapter =
+            ShowAdapter(requireContext(), haikuModels, object : ShowAdapter.ItemClickListener {
+                override fun onItemClick(view: View, position: Int) {
+                    presenter.onClickRemoveButton(position)
+                }
+            })
     }
 }
