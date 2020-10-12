@@ -19,6 +19,7 @@ interface MainFragmentView {
     fun refresh()
     fun showSaveDialog()
     fun completeSaveHaiku()
+    fun requiredHaikuText()
 }
 
 class MainFragment : Fragment(), MainFragmentView {
@@ -134,6 +135,13 @@ class MainFragment : Fragment(), MainFragmentView {
     override fun completeSaveHaiku() {
         AlertDialog.Builder(requireActivity())
             .setMessage(getString(R.string.complete_save_haiku_message))
+            .setPositiveButton(getString(R.string.OK)) { _, _ -> }
+            .show()
+    }
+
+    override fun requiredHaikuText() {
+        AlertDialog.Builder(requireActivity())
+            .setMessage(getString(R.string.required_haiku_notice))
             .setPositiveButton(getString(R.string.OK)) { _, _ -> }
             .show()
     }

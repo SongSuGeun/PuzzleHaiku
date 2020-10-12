@@ -13,5 +13,6 @@
     <string name="SAVE">SAVE</string>
     <string name="did_you_save">俳句を保存しますか。</string>
     <string name="complete_use_haiku_word">定義単語を全部使いました。</string>
-    <string name="not_complete_use_haiku_word">使われていない定義単語使があります。</string>
+    <string name="not_complete_use_haiku_word">使われていない単語があります。</string>
+    <string name="required_haiku_notice">空白の文字列は保存できません。</string>
 </resources>

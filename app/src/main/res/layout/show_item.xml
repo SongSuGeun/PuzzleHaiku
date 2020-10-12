@@ -29,7 +29,7 @@
             android:id="@+id/showFirstWord"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/font"
             android:gravity="fill"
             android:textSize="20sp"
@@ -39,7 +39,7 @@
             android:id="@+id/showSecondWord"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/font"
             android:gravity="fill"
             android:textSize="20sp"
@@ -49,7 +49,7 @@
             android:id="@+id/showThirdWord"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/font"
             android:gravity="fill"
             android:textSize="20sp"
@@ -57,16 +57,6 @@
             app:layout_constraintStart_toEndOf="@id/showSecondWord"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Cloud" />
-
-        <ImageButton
-            android:id="@+id/removeHaikuButton"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill"
-            android:layout_marginStart="10dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/haiku_gomi_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -111,6 +101,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/font"
             tools:text="3" />
+
+        <ImageButton
+            android:id="@+id/removeHaikuButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/haiku_gomi_button" />
     </LinearLayout>
 
     <LinearLayout

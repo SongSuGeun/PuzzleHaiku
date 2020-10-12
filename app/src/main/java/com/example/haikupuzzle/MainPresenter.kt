@@ -41,13 +41,18 @@ class MainPresenter : MainPresenterInt {
     }
 
     override fun saveHaiku(wordList: List<String>, haikuList: List<String>, correctCount: Int) {
-        val haikuModel = HaikuModel(haikuList[0], haikuList[1], haikuList[2])
-        val wordModel = WordModel(wordList[0], wordList[1], wordList[2])
-        val currentDate = LocalDate.now().toString()
+        val isEmpty = haikuList.any { it.isEmpty() }
+        if (isEmpty) {
+            view?.requiredHaikuText()
+        } else {
+            val haikuModel = HaikuModel(haikuList[0], haikuList[1], haikuList[2])
+            val wordModel = WordModel(wordList[0], wordList[1], wordList[2])
+            val currentDate = LocalDate.now().toString()
 
-        val haikuModels = HaikuModels(currentDate, wordModel, haikuModel, correctCount)
-        mySharedPreferences.applySharedPreference(haikuModels)
-        view?.refresh()
-        view?.completeSaveHaiku()
+            val haikuModels = HaikuModels(currentDate, wordModel, haikuModel, correctCount)
+            mySharedPreferences.applySharedPreference(haikuModels)
+            view?.refresh()
+            view?.completeSaveHaiku()
+        }
     }
 }
