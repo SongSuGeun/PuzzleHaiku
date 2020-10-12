@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.haikupuzzle.R
 import com.example.haikupuzzle.data.HaikuModels
@@ -12,8 +11,9 @@ import kotlinx.android.synthetic.main.show_item.view.*
 
 class ShowAdapter(
     private val context: Context,
-    private val haikuModels: MutableList<HaikuModels>
-) : RecyclerView.Adapter<ShowHolder>() {
+    private val haikuModels: MutableList<HaikuModels>,
+    private val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<ShowAdapter.ShowHolder>() {
 
     interface ItemClickListener {
         fun onItemClick(view: View, position: Int)
@@ -30,29 +30,26 @@ class ShowAdapter(
         holder.itemView.tag = position
         holder.bind(haikuModels[position])
     }
-}
 
-class ShowHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ShowHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(haikuModels: HaikuModels) {
-        haikuModels.dailyHaiku.also {
-            itemView.showFirstWord.text = it.firstWord
-            itemView.showSecondWord.text = it.secondWord
-            itemView.showThirdWord.text = it.thirdWord
-        }
-        haikuModels.haikuModel.also {
-            itemView.showFirstHaiku.setText(it.firstHaiku)
-            itemView.showSecondHaiku.setText(it.secondHaiku)
-            itemView.showThirdHaiku.setText(it.thirdHaiku)
-        }
-        itemView.showCreatedDate.text = haikuModels.saveDate
-        itemView.showCorrectCount.text = haikuModels.correctCount.toString()
+        fun bind(haikuModels: HaikuModels) {
+            haikuModels.dailyHaiku.also {
+                itemView.showFirstWord.text = it.firstWord
+                itemView.showSecondWord.text = it.secondWord
+                itemView.showThirdWord.text = it.thirdWord
+            }
+            haikuModels.haikuModel.also {
+                itemView.showFirstHaiku.text = it.firstHaiku
+                itemView.showSecondHaiku.text = it.secondHaiku
+                itemView.showThirdHaiku.text = it.thirdHaiku
+            }
+            itemView.showCreatedDate.text = haikuModels.saveDate
+            itemView.showCorrectCount.text =
+                context.getString(R.string.created_at_count, haikuModels.correctCount)
 
-        itemView.setOnClickListener {
-            object : ShowAdapter.ItemClickListener {
-                override fun onItemClick(view: View, position: Int) {
-//TODO
-                }
+            itemView.removeHaikuButton.setOnClickListener {
+                itemClickListener.onItemClick(itemView, adapterPosition)
             }
         }
     }

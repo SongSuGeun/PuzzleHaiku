@@ -5,59 +5,113 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/needHaikuWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="必須単語"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/showFirstWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
-        app:layout_constraintStart_toEndOf="@id/needHaikuWord"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Moon" />
-
-    <TextView
-        android:id="@+id/showSecondWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
-        app:layout_constraintStart_toEndOf="@id/showFirstWord"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="sun" />
-
-    <TextView
-        android:id="@+id/showThirdWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
-        app:layout_constraintStart_toEndOf="@id/showSecondWord"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Cloud" />
-
-    <ImageButton
-        android:id="@+id/removeHaikuButton"
-        android:layout_width="70dp"
-        android:layout_height="45dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/haiku_gomi_button"
-        app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
+    <LinearLayout
+        android:id="@+id/wordList"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/yellow_banner"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/needHaikuWord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/font"
+            android:gravity="fill"
+            android:paddingStart="10dp"
+            android:text="@string/required_word_show"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/showFirstWord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/font"
+            android:gravity="fill"
+            android:textSize="20sp"
+            tools:text="Moon" />
+
+        <TextView
+            android:id="@+id/showSecondWord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/font"
+            android:gravity="fill"
+            android:textSize="20sp"
+            tools:text="sun" />
+
+        <TextView
+            android:id="@+id/showThirdWord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/font"
+            android:gravity="fill"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/showHaikuLayout"
+            app:layout_constraintStart_toEndOf="@id/showSecondWord"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Cloud" />
+
+        <ImageButton
+            android:id="@+id/removeHaikuButton"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/haiku_gomi_button" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/optionDataList"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="@drawable/yellow_banner"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wordList">
+
+        <TextView
+            android:id="@+id/createdDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingStart="10dp"
+            android:text="@string/created_at" />
+
+        <TextView
+            android:id="@+id/showCreatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font"
+            tools:text="2020-10-20" />
+
+        <TextView
+            android:id="@+id/correctCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/font"
+            android:text="@string/use_word_count"
+            app:layout_constraintEnd_toStartOf="@id/showCorrectCount"
+            app:layout_constraintTop_toBottomOf="@id/showHaikuLayout" />
+
+        <TextView
+            android:id="@+id/showCorrectCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            tools:text="3" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/showHaikuLayout"
@@ -65,84 +119,54 @@
         android:layout_height="200dp"
         android:background="@drawable/shape_divider"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/showFirstWord">
+        app:layout_constraintTop_toBottomOf="@id/optionDataList">
 
-        <EditText
+        <TextView
             android:id="@+id/showFirstHaiku"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorWhite"
+            android:fontFamily="@font/font"
             android:maxLength="10"
             android:maxLines="1"
             android:paddingStart="20dp"
+            android:paddingTop="10dp"
             android:textColor="@color/colorBlack"
             tools:text="first test word" />
 
-        <EditText
+        <TextView
             android:id="@+id/showSecondHaiku"
             android:layout_width="180dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorWhite"
+            android:fontFamily="@font/font"
             android:maxLength="8"
             android:maxLines="1"
             android:paddingStart="20dp"
+            android:paddingTop="10dp"
             android:textColor="@color/colorBlack"
             tools:text="test word" />
 
-        <EditText
+        <TextView
             android:id="@+id/showThirdHaiku"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorWhite"
+            android:fontFamily="@font/font"
             android:maxLength="10"
             android:maxLines="1"
             android:paddingStart="20dp"
+            android:paddingTop="10dp"
             android:textColor="@color/colorBlack"
             tools:text="test word ami" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/createdDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="作成日"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout" />
-
-    <TextView
-        android:id="@+id/showCreatedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/createdDate"
-        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout"
-        tools:text="2020-10-20" />
-
-    <TextView
-        android:id="@+id/correctCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/showHaikuLayout"
-        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout"
-        tools:text="使った単語週" />
-
-    <TextView
-        android:id="@+id/showCorrectCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/showHaikuLayout"
-        app:layout_constraintTop_toBottomOf="@id/showHaikuLayout"
-        tools:text="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

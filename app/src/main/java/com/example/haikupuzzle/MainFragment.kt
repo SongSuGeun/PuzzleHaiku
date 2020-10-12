@@ -24,10 +24,9 @@ interface MainFragmentView {
 class MainFragment : Fragment(), MainFragmentView {
 
     companion object {
-        fun newInstance() =
-            MainFragment().apply {
-                arguments = Bundle()
-            }
+        fun newInstance() = MainFragment().apply {
+            arguments = Bundle()
+        }
     }
 
     private var wordsList = mutableListOf<String>()
@@ -61,8 +60,9 @@ class MainFragment : Fragment(), MainFragmentView {
                 for (i in 0 until wordsList.size) {
                     if (wordList.contains(wordsList[i])) correctCount += 1
                 }
-                haikuConfirmNotice.text =
-                    if (correctCount >= 3) "定義した単語全部使いました。" else "定義した単語を全部使ってください。"
+                val haikuConfirmMessage =
+                    if (correctCount >= 3) R.string.complete_use_haiku_word else R.string.not_complete_use_haiku_word
+                haikuConfirmNotice.text = getString(haikuConfirmMessage)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -117,10 +117,10 @@ class MainFragment : Fragment(), MainFragmentView {
 
     override fun showSaveDialog() {
         AlertDialog.Builder(requireActivity())
-            .setTitle("save하겠습니까")
-            .setMessage("Save된 하이쿠는 메뉴에서 확인하실수있습니다.")
-            .setNegativeButton("NO") { _, _ -> }
-            .setPositiveButton("OK") { _, _ ->
+            .setTitle(getString(R.string.SAVE))
+            .setMessage(getString(R.string.did_you_save))
+            .setNegativeButton(getString(R.string.NO)) { _, _ -> }
+            .setPositiveButton(getString(R.string.OK)) { _, _ ->
                 val haikuList = listOf(
                     firstHaiku.text.toString(),
                     secondHaiku.text.toString(),
@@ -133,10 +133,8 @@ class MainFragment : Fragment(), MainFragmentView {
 
     override fun completeSaveHaiku() {
         AlertDialog.Builder(requireActivity())
-            .setMessage("Haiku가 저장되었습니다. 메뉴 탭에서 확인해주세요")
-            .setPositiveButton("OK") { _, _ ->
-                refresh()
-            }
+            .setMessage(getString(R.string.complete_save_haiku_message))
+            .setPositiveButton(getString(R.string.OK)) { _, _ -> }
             .show()
     }
 

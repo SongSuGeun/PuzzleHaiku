@@ -1,21 +1,17 @@
 <resources>
-    <string name="app_name">MyHaikuPuzzle</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="app_name">一日俳句</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="required_word_notice">最大限指定単語を使って\n俳句を完成させてください</string>
+    <string name="required_word_show">必須単語</string>
+    <string name="created_at">作成日 :</string>
+    <string name="created_at_count">%d個</string>
+    <string name="use_word_count">使った単語週 :</string>
+    <string name="complete_save_haiku_message">Haikuが保存されました。\n俳句記録タブで確認ください。</string>
+    <string name="OK">OK</string>
+    <string name="NO">NO</string>
+    <string name="SAVE">SAVE</string>
+    <string name="did_you_save">俳句を保存しますか。</string>
+    <string name="complete_use_haiku_word">定義単語を全部使いました。</string>
+    <string name="not_complete_use_haiku_word">使われていない定義単語使があります。</string>
 </resources>

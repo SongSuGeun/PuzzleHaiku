@@ -31,11 +31,11 @@ class ShowPresenter : ShowPresenterInt {
 
     override fun getHaiku() {
         val haikuModels = mySharedPreferences.getSharedPreference()
-        println("song--getHaiku showPresenter $haikuModels")
-        view?.setHaikuModels(haikuModels)
+        view?.notifyDataChanged(haikuModels)
     }
 
     override fun onClickRemoveButton(position: Int) {
-        // TODO remove item
+        val haikuModels = mySharedPreferences.removeSharedPreference(position)
+        view?.notifyDataChanged(haikuModels)
     }
 }

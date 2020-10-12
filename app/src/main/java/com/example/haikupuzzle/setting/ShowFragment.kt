@@ -12,8 +12,8 @@ import com.example.haikupuzzle.util.MySharedPreferences
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 interface ShowFragmentView {
-    fun setHaikuModels(haikuModels: MutableList<HaikuModels>)
     fun initModel(haikuModels: MutableList<HaikuModels>)
+    fun notifyDataChanged(haikuModels: MutableList<HaikuModels>)
 }
 
 class ShowFragment : Fragment(), ShowFragmentView {
@@ -56,7 +56,7 @@ class ShowFragment : Fragment(), ShowFragmentView {
         this.haikuModels = haikuModels
     }
 
-    override fun setHaikuModels(haikuModels: MutableList<HaikuModels>) {
+    override fun notifyDataChanged(haikuModels: MutableList<HaikuModels>) {
         this.haikuModels = haikuModels
         recyclerShowView.adapter?.notifyDataSetChanged()
     }
