@@ -132,6 +132,7 @@
             android:background="@color/colorWhite"
             android:fontFamily="@font/font"
             android:maxLength="10"
+            android:textSize="20sp"
             android:maxLines="1"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
@@ -145,6 +146,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorWhite"
+            android:textSize="20sp"
             android:fontFamily="@font/font"
             android:maxLength="8"
             android:maxLines="1"
@@ -156,6 +158,7 @@
         <TextView
             android:id="@+id/showThirdHaiku"
             android:layout_width="250dp"
+            android:textSize="20sp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"

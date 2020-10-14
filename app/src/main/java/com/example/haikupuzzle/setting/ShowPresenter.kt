@@ -8,6 +8,7 @@ interface ShowPresenterInt {
     fun initData(mySharedPreferences: MySharedPreferences)
     fun getHaiku()
     fun onClickRemoveButton(position: Int)
+    fun removeHaiku(position: Int)
 }
 
 class ShowPresenter : ShowPresenterInt {
@@ -35,7 +36,14 @@ class ShowPresenter : ShowPresenterInt {
     }
 
     override fun onClickRemoveButton(position: Int) {
-        val haikuModels = mySharedPreferences.removeSharedPreference(position)
-        view?.notifyDataChanged(haikuModels)
+        view?.showRemoveMessageDialog(position)
+    }
+
+    override fun removeHaiku(position: Int) {
+        val removeHaikuModel = mySharedPreferences.removeSharedPreference(
+            mySharedPreferences.getSharedPreference(),
+            position
+        )
+        view?.notifyDataChanged(removeHaikuModel)
     }
 }

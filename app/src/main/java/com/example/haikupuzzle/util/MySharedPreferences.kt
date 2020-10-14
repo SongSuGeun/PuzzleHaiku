@@ -33,17 +33,17 @@ class MySharedPreferences(context: Context) {
         }
     }
 
-    fun removeSharedPreference(position: Int): MutableList<HaikuModels> {
-        val currentCalendarModel = getSharedPreference()
+    fun removeSharedPreference(
+        haikuModels: MutableList<HaikuModels>,
+        position: Int
+    ): MutableList<HaikuModels> {
         clearSharedPreference()
-        if (currentCalendarModel.isNotEmpty()) {
-            currentCalendarModel.removeAt(position)
-            val setGson = Gson().toJson(currentCalendarModel)
-            preferences.edit()
-                .putString(HAIKU, setGson)
-                .apply()
-        }
-        return currentCalendarModel
+        haikuModels.removeAt(position)
+        val setGson = Gson().toJson(haikuModels)
+        preferences.edit()
+            .putString(HAIKU, setGson)
+            .apply()
+        return haikuModels
     }
 
     private fun clearSharedPreference() {

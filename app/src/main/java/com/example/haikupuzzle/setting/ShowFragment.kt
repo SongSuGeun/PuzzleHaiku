@@ -1,11 +1,11 @@
 package com.example.haikupuzzle.setting
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.haikupuzzle.R
 import com.example.haikupuzzle.data.HaikuModels
 import com.example.haikupuzzle.util.MySharedPreferences
@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 
 interface ShowFragmentView {
     fun initModel(haikuModels: MutableList<HaikuModels>)
+    fun showRemoveMessageDialog(position: Int)
     fun notifyDataChanged(haikuModels: MutableList<HaikuModels>)
 }
 
@@ -57,15 +58,24 @@ class ShowFragment : Fragment(), ShowFragmentView {
     }
 
     override fun notifyDataChanged(haikuModels: MutableList<HaikuModels>) {
-        this.haikuModels = haikuModels
+        this.haikuModels.clear()
+        this.haikuModels.addAll(haikuModels)
         recyclerShowView.adapter?.notifyDataSetChanged()
     }
 
+    override fun showRemoveMessageDialog(position: Int) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle(getString(R.string.REMOVE))
+            .setMessage(getString(R.string.remove_haiku_model))
+            .setNegativeButton(getString(R.string.NO)) { _, _ -> }
+            .setPositiveButton(getString(R.string.OK)) { _, _ ->
+                presenter.removeHaiku(position)
+            }
+            .show()
+    }
+
     private fun initAdapter() {
-        recyclerShowView.layoutManager = LinearLayoutManager(requireContext())
         recyclerShowView.setHasFixedSize(true)
-        recyclerShowView.isNestedScrollingEnabled = false
-        println("song--initAdapter desu ,, $haikuModels")
         recyclerShowView.adapter =
             ShowAdapter(requireContext(), haikuModels, object : ShowAdapter.ItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
